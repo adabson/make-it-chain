@@ -7,6 +7,29 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="https://threejs.org/build/three.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+function poll(){
+  getData( function( data ) {
+      let capBillions = ( data.total_market_cap_usd / 1000000000.0 ).toFixed(2);
+      console.log( capBillions  );
+      $( 'title' ).text( capBillions ); 
+      // $( "link[rel='icon']" ).attr( "href", image );
+  });
+}
+
+function getData( successFunction ) {
+  var ret = $.ajax({
+    dataType: 'json',
+    type: 'get',
+    url: 'https://api.coinmarketcap.com/v1/global/',
+    success: successFunction
+  });
+}
+
+poll();
+setInterval( poll, 15000);
+    </script>
     <style>
       body{margin:0;}
     </style>
